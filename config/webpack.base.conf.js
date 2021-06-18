@@ -7,14 +7,12 @@ const { VueLoaderPlugin }          = require('vue-loader')
 
 const PATHS = {
   src: path.join(__dirname, '../src'),
-  dist: path.join(__dirname, '../../server/public'),
+  dist: path.join(__dirname, './built'),
   assets: 'assets/'
 }
 
 const PAGES_DIR = PATHS.src
 const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.html'))
-
-const src = path.resolve(__dirname, 'src')
 
 module.exports = {
   target: 'web',
@@ -22,7 +20,7 @@ module.exports = {
     paths: PATHS
   },
   entry: {
-    main: `${PATHS.src}/main.js`,
+    main: `${PATHS.src}/index.js`,
   },
   output: {
     filename: `${PATHS.assets}js/[name].[contenthash].js`,
@@ -42,13 +40,6 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   test: /\.html$/i,
-      //   loader: 'html-loader',
-      //   options: {
-      //     minimize: false,
-      //   },
-      // },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -134,13 +125,32 @@ module.exports = {
             }
           }
         ]
-      }
+      },
+      {
+        test: /\.s(c|a)ss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: require('sass'),
+              indentedSyntax: true
+            },
+            options: {
+              implementation: require('sass'),
+              sassOptions: {
+                indentedSyntax: true
+              },
+            },
+          },
+        ],
+      },
     ]
   },
   resolve: {
     alias: {
-      '~': PATHS.src,
-      // vue$: 'vue/dist/vue.js'
+      '~': PATHS.src
     }
   },
   plugins: [
@@ -149,7 +159,6 @@ module.exports = {
       filename: `${PATHS.assets}css/[name].[contenthash].css`,
     }),
     new CopyWebpackPlugin([
-      { from: `${PATHS.src}/static`, to: '' },
       { from: `${PATHS.src}/assets/img/icons`, to: `${PATHS.assets}/img` },
     ]),
     ...PAGES.map(page => new HtmlWebpackPlugin({
