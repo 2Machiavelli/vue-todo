@@ -1,6 +1,6 @@
-const webpack             =  require('webpack')
 const merge               = require('webpack-merge')
 const baseWebpackConfig   = require('./webpack.base.conf')
+const ESLintPlugin        = require('eslint-webpack-plugin');
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   mode: 'development',
@@ -16,9 +16,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }
   },
   plugins: [
-    new webpack.SourceMapDevToolPlugin({
-      filename: '[file].map'
-    })
+    new ESLintPlugin({
+      extensions: ['js', 'vue']
+    }),
   ]
 })
 
