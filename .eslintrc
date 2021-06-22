@@ -4,7 +4,23 @@
     "plugin:vue/recommended"
   ],
   "rules": {
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "vue/html-self-closing": ["error", {
+      "html": {
+        "void": "never",
+        "normal": "always",
+        "component": "any"
+      },
+      "svg": "always",
+      "math": "always"
+    }],
+    "vue/html-indent": ["error", "tab"],
+    "vue/html-quotes": [ "error", "double", { "avoidEscape": false } ],
+    "indent": ["error", "tab"],
+    "quotes": [
+      "error",
+      "double"
+    ]
   },
   "env": {
     "es6": true,
