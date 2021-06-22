@@ -51,6 +51,7 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
+    "nanoid": "^3.1.23",
     "reset-css": "^5.0.1",
     "vue": "^2.6.11",
     "vuetify": "^2.5.4",

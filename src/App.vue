@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <todo-list></todo-list>
-  </div>
+	<v-app>
+		<v-main>
+			<todo-page />
+		</v-main>
+	</v-app>
 </template>
 
 <script>
 
-import TodoList from "./views/TodoList.vue"
+import TodoPage from "./views/TodoPage.vue"
 
 export default {
-  components: {
-    "todo-list": TodoList
-  }
+	components: {
+		"todo-page": TodoPage
+	}
 }
 </script>
-
-<style>
-
-</style>
