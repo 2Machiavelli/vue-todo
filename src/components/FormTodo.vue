@@ -26,6 +26,7 @@
 		<v-btn
 			color="error"
 			class="mr-4"
+			@click="reset"
 		>
 			Reset Form
 		</v-btn>
@@ -42,7 +43,7 @@ export default {
 		description: "",
 		valid: true,
 		titieRules: [
-			v => !!v || "Title is required",
+			v => !!String(v).trim() || "Title is required",
 			v => (v && v.length <= 50) || "Title must be not more than 50 characters"
 		]
 	}),
@@ -50,12 +51,14 @@ export default {
 	methods: {
 		emitAddTodo() {
 			if (!this.$refs.formAddTodo.validate()) return
+
 			this.$emit("addTodo", {
 				id: nanoid(),
 				title: this.title,
 				description: this.description,
 				date: Date.now()
 			})
+			
 			this.reset()
 		},
 

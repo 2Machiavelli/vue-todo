@@ -7,13 +7,13 @@
 			{{ todoData.title }}
 		</v-card-title>
 		<v-card-subtitle>
-			{{ todoData.date }}
+			{{ new Date(todoData.date).toDateString() }}
 		</v-card-subtitle>
 		<v-card-text>
 			{{ todoData.description }}
 		</v-card-text>
 		<v-card-actions>
-			<v-btn
+			<v-btn 
 				color="success"
 				@click="emitCompleteTodo"
 			> 
@@ -47,6 +47,13 @@ export default {
 			default: () => ({})
 		}
 	},
+
+	watch: {
+		todoData: function () {
+			this.$forceUpdate()
+		}
+	},
+
 	methods: {
 		emitDeleteTodo() {
 			this.$emit("deleteTodo", this.todoData)
@@ -54,10 +61,6 @@ export default {
 		
 		emitCompleteTodo() {
 			this.$emit("completeTodo", this.todoData)
-		},
-
-		emitEditTodo() {
-			this.$emit("editTodo", this.todoData)
 		}
 	}
 }

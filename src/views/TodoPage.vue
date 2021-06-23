@@ -25,12 +25,11 @@
 				align-self="center"
 			>
 				<todo
-					v-for="(todo, index) in getAllTodos"
-					:key="index"
+					v-for="todo in getAllTodos"
+					:key="todo.id"
 					:todo-data="todo"
 					@deleteTodo="deleteTodo"
 					@completeTodo="completeTodo"
-					@editTodo="editTodo"
 				/>
 			</v-col>
 		</v-row>
