@@ -4,7 +4,8 @@
   "main": "./index.js",
   "scripts": {
     "dev": "webpack serve --open --config ./config/webpack.dev.conf.js",
-    "build": "webpack --config ./config/webpack.build.conf.js"
+    "build": "webpack --config ./config/webpack.build.conf.js",
+    "lint": "eslint ./src --ext .js,.vue --ignore-pattern node_modules/"
   },
   "browserslist": [
     "> 1%",
