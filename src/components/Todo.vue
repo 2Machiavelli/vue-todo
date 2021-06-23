@@ -7,7 +7,7 @@
 			{{ todoData.title }}
 		</v-card-title>
 		<v-card-subtitle>
-			{{ new Date(todoData.date).toDateString() }}
+			{{ getDate }}
 		</v-card-subtitle>
 		<v-card-text>
 			{{ todoData.description }}
@@ -48,9 +48,13 @@ export default {
 		}
 	},
 
-	watch: {
-		todoData: function () {
-			this.$forceUpdate()
+	computed: {
+		getDate() {
+			const todoDate = new Date(this.todoData.date) 
+
+			const minutes =  todoDate.getMinutes() > 10 ? todoDate.getMinutes() : `0${ todoDate.getMinutes() }`
+
+			return `${ todoDate.toLocaleDateString() } | ${ todoDate.getHours() }:${ minutes }`
 		}
 	},
 
