@@ -38,18 +38,6 @@ describe("FormTodo.vue", () => {
     expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is(FormTodo)).toBeTruthy()
 
-    // expect(wrapper.find(".v-card__title").text()).toBe("title")
-    // expect(wrapper.find(".v-card__subtitle").text()).toBe(Todo.computed.getDate.call({todoData}))
-    // expect(wrapper.find(".v-card__text").text()).toBe("description")
-
   })
 
-  // it("FormTodo emit", () => {
-
-  //   wrapper.vm.emitDeleteTodo()
-  //   wrapper.vm.emitCompleteTodo()
-
-  //   expect(wrapper.emitted().deleteTodo).toEqual([[todoData]])
-  //   expect(wrapper.emitted().completeTodo).toEqual([[todoData]])
-  // })
 })

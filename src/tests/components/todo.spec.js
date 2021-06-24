@@ -35,5 +35,6 @@ describe("Todo.vue", () => {
 
     expect(wrapper.emitted().deleteTodo).toEqual([[todoData]])
     expect(wrapper.emitted().completeTodo).toEqual([[todoData]])
+    
   })
 })
