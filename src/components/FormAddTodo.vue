@@ -1,8 +1,9 @@
 <template>
 	<v-form
-		ref="formAddTodo"
+		ref="form"
 		v-model="valid"
 		lazy-validation
+		@submit.prevent="handleSubmit"
 	>
 		<v-text-field
 			v-model="title"
@@ -10,6 +11,7 @@
 			label="Title*"
 			:rules="titieRules"
 			required
+			data-todo-title
 		></v-text-field>
 		<v-text-field
 			v-model="description"
@@ -19,16 +21,16 @@
 		<v-btn
 			color="success"
 			class="mr-4"
-			@click="emitAddTodo"
+			type="submit"
 		>
 			Add
 		</v-btn>
 		<v-btn
-			color="error"
+			color="warning"
 			class="mr-4"
 			@click="reset"
 		>
-			Reset Form
+			Reset
 		</v-btn>
 	</v-form>
 </template>
@@ -49,21 +51,31 @@ export default {
 	}),
 
 	methods: {
-		emitAddTodo() {
-			if (!this.$refs.formAddTodo.validate()) return
+		handleSubmit() {
+			if (!this.$refs.form.validate()) return false
 
-			this.$emit("addTodo", {
-				id: nanoid(),
-				title: this.title,
-				description: this.description,
-				date: Date.now()
-			})
-			
-			this.reset()
+			if (this.$refs.form.validate()) {
+				const todoData = {
+					id: nanoid(),
+					title: this.title,
+					description: this.description,
+					date: Date.now()
+				}
+
+				this.emitAddTodo(todoData)
+				
+				this.reset()
+
+				return true
+			}
+		},
+
+		emitAddTodo(todoData) {
+			this.$emit("addTodo", todoData)
 		},
 
 		reset () {
-			this.$refs.formAddTodo.reset()
+			this.$refs.form.reset()
 		},
 	}
 }

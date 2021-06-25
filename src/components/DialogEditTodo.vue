@@ -1,9 +1,11 @@
 <template>
-	<div class="text-center">
+	<div class="text-center"
+		data-app
+	>
 		<v-btn
 			class="mr-2 ml-2"
 			color="warning"
-			@click="dialog = true"
+			@click="openDialog"
 		>
 			Edit
 		</v-btn>
@@ -16,10 +18,11 @@
 				class="spacing-playground pa-3"
 			>
 				<v-form
-					ref="formEditTodo"
+					ref="form"
 					v-model="valid"
 					fluid
 					lazy-validation
+					@submit.prevent="handleSubmit"
 				>
 					<v-text-field
 						v-model="title"
@@ -36,9 +39,16 @@
 					<v-btn
 						color="success"
 						class="mr-4"
-						@click="saveChanges"
+						type="submit"
 					>
 						Save
+					</v-btn>
+					<v-btn
+						color="warning"
+						class="mr-4"
+						@click="reset"
+					>
+						Reset
 					</v-btn>
 					<v-btn
 						color="error"
@@ -59,7 +69,7 @@ import { mapActions } from "vuex"
  
 export default {
 	props: {
-		todo: {
+		editingTodoData: {
 			type: Object,
 			default: () => ({})
 		}
@@ -76,50 +86,48 @@ export default {
 		]
 	}),
 
-	watch: {
-		dialog: function(val) {
-			if (!val) {
-				this.$
-			}
-		}
-	},
-
 	created() {
-		this.title = this.todo.title
-		this.description = this.todo.description
+		this.title = this.editingTodoData.title
+		this.description = this.editingTodoData.description
 	},
-
-	
 
 	methods: {
 		...mapActions([
 			"editTodo"
 		]),
 		
-		closeDialog() {
-			this.dialog = false
-		},
-
-		reset() {
-			this.$refs.formEditTodo.reset()
-		},
-
-		saveChanges() {
-			if (!this.$refs.formEditTodo.validate()) return
-
+		handleSubmit() {
 			if (
-				(this.title === this.todo.title) &&
-				(this.description === this.todo.description)
-			) return this.closeDialog()
+				(this.title === this.editingTodoData.title) &&
+				(this.description === this.editingTodoData.description)
+			) {
+				this.closeDialog()
+				return true
+			}
+
+			if (!this.$refs.form.validate()) return false
 
 			this.editTodo({
-				...this.todo,
+				id: this.editingTodoData.id,
 				title: this.title,
 				description: this.description,
 				date: Date.now()
 			})
 
 			this.closeDialog()
+			return true
+		},
+
+		openDialog() {
+			this.dialog = true
+		},
+
+		closeDialog() {
+			this.dialog = false
+		},
+
+		reset () {
+			this.$refs.form.reset()
 		}
 	}
 }

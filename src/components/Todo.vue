@@ -19,8 +19,8 @@
 			> 
 				Complete
 			</v-btn>
-			<edit-todo-dialog 
-				:todo="todoData"
+			<dialog-edit-todo
+				:editing-todo-data="todoData"
 			/>
 			<v-btn
 				color="error"
@@ -34,11 +34,11 @@
 
 <script>
 
-import EditTodoDialog from "./EditTodoDialog.vue"
+import DialogEditTodo from "./DialogEditTodo.vue"
 
 export default {
 	components: {
-		"edit-todo-dialog": EditTodoDialog
+		"dialog-edit-todo": DialogEditTodo
 	},
 
 	props: {
@@ -52,7 +52,7 @@ export default {
 		getDate() {
 			const todoDate = new Date(this.todoData.date) 
 
-			const minutes =  todoDate.getMinutes() > 10 ? todoDate.getMinutes() : `0${ todoDate.getMinutes() }`
+			const minutes =  todoDate.getMinutes() >= 10 ? todoDate.getMinutes() : `0${ todoDate.getMinutes() }`
 
 			return `${ todoDate.toLocaleDateString() } | ${ todoDate.getHours() }:${ minutes }`
 		}

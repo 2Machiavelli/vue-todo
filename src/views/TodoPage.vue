@@ -9,7 +9,7 @@
 				cols="6"
 				align-self="center"
 			>
-				<todo-form
+				<form-add-todo
 					@addTodo="addTodo"
 				/>
 			</v-col>
@@ -40,12 +40,12 @@
 
 import { mapGetters, mapActions } from "vuex"
 
-import TodoForm from "../components/FormTodo.vue"
+import FormAddTodo from "../components/FormAddTodo.vue"
 import Todo from "../components/Todo.vue"
 
 export default {
 	components: {
-		"todo-form": TodoForm,
+		"form-add-todo": FormAddTodo,
 		"todo": Todo,
 	},
 
