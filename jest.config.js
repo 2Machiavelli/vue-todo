@@ -30,5 +30,5 @@ module.exports = {
     "<rootDir>/node_modules/(?!(vuetify)/)",
   ],
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(js?|ts?)$",
-  setupFilesAfterEnv: ['<rootDir>/src/tests/setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/src/tests/unit/setup.js'],
 }

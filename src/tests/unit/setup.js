@@ -5,6 +5,7 @@ import { createLocalVue } from "@vue/test-utils"
 
 
 Vue.use(Vuetify)
+import 'vuetify/dist/vuetify.min.css'
 Vue.config.productionTip = false
 
 
