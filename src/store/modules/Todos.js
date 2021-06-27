@@ -5,10 +5,7 @@ export default {
 	}),
 	getters: {
 		getAllTodos(state) {
-
-			const sortedTodos = state.todos.sort((a, b) =>  b.date - a.date)
-
-			return sortedTodos
+			return state.todos
 		}
 	},
 	mutations: {
