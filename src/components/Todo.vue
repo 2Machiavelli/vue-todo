@@ -19,8 +19,8 @@
 			> 
 				Complete
 			</v-btn>
-			<dialog-edit-todo
-				:editing-todo-data="todoData"
+			<slot
+				name="dialogEditTodo"
 			/>
 			<v-btn
 				color="error"
@@ -34,13 +34,7 @@
 
 <script>
 
-import DialogEditTodo from "./DialogEditTodo.vue"
-
 export default {
-	components: {
-		"dialog-edit-todo": DialogEditTodo
-	},
-
 	props: {
 		"todoData": {
 			type: Object,

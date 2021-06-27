@@ -1,8 +1,10 @@
 <template>
-	<div class="text-center"
+	<div 
+		class="text-center"
 		data-app
 	>
 		<v-btn
+			ref="btn"
 			class="mr-2 ml-2"
 			color="warning"
 			@click="openDialog"
@@ -64,8 +66,6 @@
 </template>
 
 <script>
-
-import { mapActions } from "vuex"
  
 export default {
 	props: {
@@ -92,22 +92,18 @@ export default {
 	},
 
 	methods: {
-		...mapActions([
-			"editTodo"
-		]),
-		
 		handleSubmit() {
 			if (
 				(this.title === this.editingTodoData.title) &&
 				(this.description === this.editingTodoData.description)
 			) {
 				this.closeDialog()
-				return true
+				return
 			}
 
-			if (!this.$refs.form.validate()) return false
+			if (!this.$refs.form.validate()) return
 
-			this.editTodo({
+			this.emitEditTodo({
 				id: this.editingTodoData.id,
 				title: this.title,
 				description: this.description,
@@ -115,7 +111,11 @@ export default {
 			})
 
 			this.closeDialog()
-			return true
+			return
+		},
+
+		emitEditTodo(todoData) {
+			this.$emit("editTodo", todoData)
 		},
 
 		openDialog() {

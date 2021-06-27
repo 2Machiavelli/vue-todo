@@ -52,21 +52,19 @@ export default {
 
 	methods: {
 		handleSubmit() {
-			if (!this.$refs.form.validate()) return false
+			if (!this.$refs.form.validate()) return
 
 			if (this.$refs.form.validate()) {
-				const todoData = {
+
+				this.emitAddTodo({
 					id: nanoid(),
 					title: this.title,
 					description: this.description,
 					date: Date.now()
-				}
-
-				this.emitAddTodo(todoData)
+				})
 				
 				this.reset()
-
-				return true
+				return
 			}
 		},
 
