@@ -3,7 +3,7 @@ import { mount, shallowMount } from "@vue/test-utils"
 import Todo from "@/components/Todo.vue"
 
 const todoData = {
-  id: "G48a_bJwSi0SB6xSeJOtK", 
+  id: "G48a_bJwSi0SB6xSeJOtl", 
   title: "title", 
   description: "description", 
   date: 1624471319925
@@ -26,12 +26,6 @@ describe("Todo.vue", () => {
     expect(wrapper.find(".v-card__text").text()).toBe("description")
   })
 
-  it("html testing", () => {
-    const wrapper = shallowMount(Todo)
-
-    expect(wrapper.find("dialog-edit-todo-stub").exists()).toBeTruthy()
-    
-  })
 
   it("methods testing", () => {
     const wrapper = mount(Todo, {
