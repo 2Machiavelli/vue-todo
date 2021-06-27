@@ -65,8 +65,6 @@ describe("TodoPage.vue", () => {
       store
     })
 
-    // console.log(wrapper.vm)
-
     expect(wrapper.vm.allTodosSortedByDate).toEqual([
       {
         id: "G48a_bJwSi0SB6xSeJOtK", 
