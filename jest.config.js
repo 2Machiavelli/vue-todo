@@ -25,6 +25,12 @@ module.exports = {
     ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
     ".*\\.(vue)$": "vue-jest",
     ".*\\.(js)$": "babel-jest",
+    ".*\\.(ts)$": "ts-jest"
+  },
+  "globals": {
+    "vue-jest": {
+      "tsConfigFile": "tsconfig.json"
+    }
   },
   transformIgnorePatterns: [
     "<rootDir>/node_modules/(?!(vuetify)/)",
