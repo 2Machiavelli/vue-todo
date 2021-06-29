@@ -1,9 +1,10 @@
-const path                      = require('path')
-const fs                        = require('fs')
-const MiniCssExtractPlugin      = require('mini-css-extract-plugin')
-const CopyWebpackPlugin         = require('copy-webpack-plugin')
-const HtmlWebpackPlugin         = require('html-webpack-plugin')
-const { VueLoaderPlugin }          = require('vue-loader')
+const path                            = require('path')
+const fs                              = require('fs')
+const MiniCssExtractPlugin            = require('mini-css-extract-plugin')
+const CopyWebpackPlugin               = require('copy-webpack-plugin')
+const HtmlWebpackPlugin               = require('html-webpack-plugin')
+const { VueLoaderPlugin }             = require('vue-loader')
+const WebpackBundleSizeAnalyzerPlugin = require('webpack-bundle-size-analyzer').WebpackBundleSizeAnalyzerPlugin;
 
 const PATHS = {
   src: path.join(__dirname, '../src'),
@@ -20,7 +21,7 @@ module.exports = {
     paths: PATHS
   },
   entry: {
-    main: `${PATHS.src}/index.js`,
+    main: `${PATHS.src}/index.ts`,
   },
   output: {
     filename: `${PATHS.assets}js/[name].[contenthash].js`,
@@ -162,6 +163,7 @@ module.exports = {
     }
   },
   plugins: [
+    new WebpackBundleSizeAnalyzerPlugin('./plain-report.txt'),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: `${PATHS.assets}css/[name].[contenthash].css`,
