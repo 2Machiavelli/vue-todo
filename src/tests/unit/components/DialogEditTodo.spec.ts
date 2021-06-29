@@ -4,7 +4,7 @@ import { mount, shallowMount } from "@vue/test-utils"
 import DialogEditTodo from "@/components/DialogEditTodo.vue"
 
 
-const todoData = {
+const todoData: any = {
 	id: "G48a_bJwSi0SB6xSeJOtu", 
 	title: "title", 
 	description: "description", 
@@ -22,7 +22,7 @@ describe("DialogEditTodo.vue", () => {
 	})
 
 	it("testing props", () => {
-		const wrapper = shallowMount(DialogEditTodo, {
+		const wrapper: any = shallowMount(DialogEditTodo, {
 			propsData: {
 				"editingTodoData": todoData
 			}
@@ -33,7 +33,7 @@ describe("DialogEditTodo.vue", () => {
 	})
 
 	it("testing submit", () => {
-		const wrapper = shallowMount(DialogEditTodo)
+		const wrapper: any = shallowMount(DialogEditTodo)
 
 		wrapper.setData({
 			title: "newTitle",
@@ -50,7 +50,7 @@ describe("DialogEditTodo.vue", () => {
 	})
 
 	it("testing open/close", () => {
-		const wrapper = mount(DialogEditTodo)
+		const wrapper: any = mount(DialogEditTodo)
 
 		wrapper.vm.openDialog()
 

@@ -65,9 +65,10 @@
 	</div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
  
-export default {
+export default Vue.extend ({
 	props: {
 		editingTodoData: {
 			type: Object,
@@ -81,8 +82,8 @@ export default {
 		description: "",
 		valid: true,
 		titieRules: [
-			v => !!String(v).trim() || "Title has to be not empty",
-			v => (v && v.length <= 50) || "Title must be not more than 50 characters"
+			(v: any) => !!String(v).trim() || "Title has to be not empty",
+			(v: any) => (v && v.length <= 50) || "Title must be not more than 50 characters"
 		]
 	}),
 
@@ -101,7 +102,7 @@ export default {
 				return
 			}
 
-			if (!this.$refs.form.validate()) return
+			if (!this.validate("form")) return
 
 			this.emitEditTodo({
 				id: this.editingTodoData.id,
@@ -114,7 +115,7 @@ export default {
 			return
 		},
 
-		emitEditTodo(todoData) {
+		emitEditTodo(todoData: any) {
 			this.$emit("editTodo", todoData)
 		},
 
@@ -126,9 +127,16 @@ export default {
 			this.dialog = false
 		},
 
-		reset () {
-			this.$refs.form.reset()
+		validate(el: string): boolean {
+			const refEl: any = this.$refs[el]
+
+			return refEl.validate()
+		},
+
+		reset(el: string): void {
+			const refEl: any = this.$refs[el]
+			refEl.reset()
 		}
 	}
-}
+})
 </script> 

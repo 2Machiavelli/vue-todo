@@ -42,7 +42,8 @@
 	</v-container>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 
 import { mapGetters, mapActions } from "vuex"
 
@@ -50,7 +51,7 @@ import DialogEditTodo from "../components/DialogEditTodo.vue"
 import FormAddTodo from "../components/FormAddTodo.vue"
 import Todo from "../components/Todo.vue"
 
-export default {
+export default Vue.extend ({
 	components: {
 		"dialog-edit-todo": DialogEditTodo,
 		"form-add-todo": FormAddTodo,
@@ -78,5 +79,5 @@ export default {
 			"deleteTodo"
 		])
 	}
-}
+})
 </script>

@@ -6,14 +6,14 @@ import FormAddTodo from "@/components/FormAddTodo.vue"
 describe("FormAddTodo.vue", () => {
 
 	it("testing component", () => {
-		const wrapper = mount(FormAddTodo)
+		const wrapper: any = mount(FormAddTodo)
 
 		expect(wrapper.vm).toBeTruthy()
 		expect(wrapper.is(FormAddTodo)).toBeTruthy()
 	})
 
 	it("testing submit", () => {
-		const wrapper = shallowMount(FormAddTodo)
+		const wrapper: any = shallowMount(FormAddTodo)
 
 		wrapper.setData({
 			title: "newTitle",

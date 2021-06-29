@@ -14,6 +14,6 @@ Vue.config.productionTip = false
 const localVue = createLocalVue()
 
 
-const vuetify = new Vuetify({})
+const vuetify: any = new Vuetify({})
 
 localVue.use(vuetify)

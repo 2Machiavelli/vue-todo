@@ -35,26 +35,27 @@
 	</v-form>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 
 import { nanoid }from "nanoid"
 
-export default {
+export default Vue.extend ({
 	data: () => ({
 		title: "",
 		description: "",
 		valid: true,
 		titieRules: [
-			v => !!String(v).trim() || "Title is required",
-			v => (v && v.length <= 50) || "Title must be not more than 50 characters"
+			(v: any) => !!String(v).trim() || "Title is required",
+			(v: any) => (v && v.length <= 50) || "Title must be not more than 50 characters"
 		]
 	}),
 
 	methods: {
 		handleSubmit() {
-			if (!this.$refs.form.validate()) return
+			if (!this.validate("form")) return
 
-			if (this.$refs.form.validate()) {
+			if (this.validate("form")) {
 
 				this.emitAddTodo({
 					id: nanoid(),
@@ -63,18 +64,26 @@ export default {
 					date: Date.now()
 				})
 				
-				this.reset()
+				this.reset("form")
 				return
 			}
 		},
 
-		emitAddTodo(todoData) {
+		emitAddTodo(todoData: any) {
 			this.$emit("addTodo", todoData)
 		},
 
-		reset () {
-			this.$refs.form.reset()
+		validate(el: string): boolean {
+			const refEl: any = this.$refs[el]
+
+			return refEl.validate()
 		},
+
+		reset(el: string): void {
+			const refEl: any = this.$refs[el]
+
+			refEl.reset()
+		}
 	}
-}
+})
 </script>

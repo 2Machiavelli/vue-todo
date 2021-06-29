@@ -9,7 +9,7 @@ import Todo from "@/components/Todo.vue"
 
 
 describe("TodoPage.vue", () => {
-	let store
+	let store: any;
 
 	beforeEach(() => {
 		store = new Vuex.Store({
@@ -61,7 +61,7 @@ describe("TodoPage.vue", () => {
 	})
 
 	it("testing computed", () => {
-		const wrapper = mount(TodoPage, {
+		const wrapper: any = mount(TodoPage, {
 			store
 		})
 

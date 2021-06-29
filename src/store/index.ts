@@ -2,7 +2,8 @@ import Vue from "vue"
 import Vuex from "vuex"
 import VuexPersist from "vuex-persist"
 
-import Todos from "./modules/Todos.js"
+// @ts-ignore
+import Todos from "./modules/Todos.ts"
 
 const vuexPersist = new VuexPersist({
 	storage: window.localStorage

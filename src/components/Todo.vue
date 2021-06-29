@@ -32,9 +32,10 @@
 	</v-card>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 
-export default {
+export default Vue.extend ({
 	props: {
 		"todoData": {
 			type: Object,
@@ -43,7 +44,7 @@ export default {
 	},
 
 	computed: {
-		getDate() {
+		getDate(): string {
 			const todoDate = new Date(this.todoData.date) 
 
 			const minutes =  todoDate.getMinutes() >= 10 ? todoDate.getMinutes() : `0${ todoDate.getMinutes() }`
@@ -61,5 +62,5 @@ export default {
 			this.$emit("completeTodo", this.todoData)
 		}
 	}
-}
+})
 </script>

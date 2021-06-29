@@ -12,23 +12,23 @@ const todoData = {
 
 describe("Todo.vue", () => {
 	it("html testing", () => {
-		const wrapper = mount(Todo, {
+		const wrapper: any = mount(Todo, {
 			propsData: { 
 				todoData 
 			}
 		})
-
+		
 		expect(wrapper.vm).toBeTruthy()
 		expect(wrapper.is(Todo)).toBeTruthy()
-		expect(Todo.computed.getDate.call({todoData})).toBeTruthy()
+		expect(wrapper.vm.getDate).toBeTruthy()
 		expect(wrapper.find(".v-card__title").text()).toBe("title")
-		expect(wrapper.find(".v-card__subtitle").text()).toBe(Todo.computed.getDate.call({todoData}))
+		expect(wrapper.find(".v-card__subtitle").text()).toBe(wrapper.vm.getDate)
 		expect(wrapper.find(".v-card__text").text()).toBe("description")
 	})
 
 
 	it("methods testing", () => {
-		const wrapper = mount(Todo, {
+		const wrapper: any = mount(Todo, {
 			propsData: { 
 				todoData 
 			}
