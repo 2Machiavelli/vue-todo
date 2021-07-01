@@ -23,6 +23,7 @@
 			<v-col
 				cols="6"
 				align-self="center"
+				data-testid="todo-container"
 			>
 				<todo
 					v-for="todo in allTodosSortedByDate"
@@ -43,10 +44,9 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 
+import Vue from "vue"
 import { mapGetters, mapActions } from "vuex"
-
 import DialogEditTodo from "../components/DialogEditTodo.vue"
 import FormAddTodo from "../components/FormAddTodo.vue"
 import Todo from "../components/Todo.vue"

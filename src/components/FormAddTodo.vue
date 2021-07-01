@@ -11,17 +11,18 @@
 			label="Title*"
 			:rules="titieRules"
 			required
-			data-todo-title
+			data-testid="form_add-title-input"
 		></v-text-field>
 		<v-text-field
 			v-model="description"
 			label="Description"
-			required
+			data-testid="form_add-description-input"
 		></v-text-field>
 		<v-btn
 			color="success"
 			class="mr-4"
 			type="submit"
+			data-testid="form_add-submit-btn"
 		>
 			Add
 		</v-btn>
@@ -29,6 +30,7 @@
 			color="warning"
 			class="mr-4"
 			@click="reset"
+			data-testid="form_add-reset-btn"
 		>
 			Reset
 		</v-btn>
@@ -36,8 +38,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 
+import Vue from "vue"
 import { nanoid }from "nanoid"
 
 export default Vue.extend ({
@@ -52,7 +54,7 @@ export default Vue.extend ({
 	}),
 
 	methods: {
-		handleSubmit() {
+		handleSubmit(): void {
 			if (!this.validate("form")) return
 
 			if (this.validate("form")) {
@@ -64,12 +66,12 @@ export default Vue.extend ({
 					date: Date.now()
 				})
 				
-				this.reset("form")
+				// this.reset("form")
 				return
 			}
 		},
 
-		emitAddTodo(todoData: any) {
+		emitAddTodo(todoData: any): void {
 			this.$emit("addTodo", todoData)
 		},
 

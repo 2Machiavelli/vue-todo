@@ -1,7 +1,6 @@
 <template>
 	<div 
 		class="text-center"
-		data-app
 	>
 		<v-btn
 			ref="btn"
@@ -32,16 +31,18 @@
 						label="Title*"
 						:rules="titieRules"
 						required
+						data-testid="dialog_edit-title-input"
 					></v-text-field>
 					<v-text-field
 						v-model="description"
 						label="Description"
-						required
+						data-testid="dialog_edit-description-input"
 					></v-text-field>
 					<v-btn
 						color="success"
 						class="mr-4"
 						type="submit"
+						data-testid="dialog_edit-submit-btn"
 					>
 						Save
 					</v-btn>
@@ -49,6 +50,7 @@
 						color="warning"
 						class="mr-4"
 						@click="reset"
+						data-testid="dialog_edit-reset-btn"
 					>
 						Reset
 					</v-btn>
@@ -66,7 +68,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+
+import Vue from "vue"
  
 export default Vue.extend ({
 	props: {
@@ -93,7 +96,7 @@ export default Vue.extend ({
 	},
 
 	methods: {
-		handleSubmit() {
+		handleSubmit(): void {
 			if (
 				(this.title === this.editingTodoData.title) &&
 				(this.description === this.editingTodoData.description)
@@ -112,18 +115,17 @@ export default Vue.extend ({
 			})
 
 			this.closeDialog()
-			return
 		},
 
-		emitEditTodo(todoData: any) {
+		emitEditTodo(todoData: any): void {
 			this.$emit("editTodo", todoData)
 		},
 
-		openDialog() {
+		openDialog(): void {
 			this.dialog = true
 		},
 
-		closeDialog() {
+		closeDialog(): void {
 			this.dialog = false
 		},
 

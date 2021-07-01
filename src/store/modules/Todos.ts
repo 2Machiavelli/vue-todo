@@ -1,4 +1,4 @@
-import { Module } from "vuex";
+import { Module } from "vuex"
 
 const todosModule: Module<any, any> = {
 	state: () => ({
@@ -6,8 +6,11 @@ const todosModule: Module<any, any> = {
 		completedTodos: []
 	}),
 	getters: {
-		getAllTodos(state: any) {
+		getAllTodos(state: any): any {
 			return state.todos
+		},
+		getAllCompletedTodos(state: any): any {
+			return state.completedTodos
 		}
 	},
 	mutations: {

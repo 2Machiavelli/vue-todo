@@ -8,8 +8,7 @@
 
 <script lang="ts">
 
-import Vue from "vue";
-
+import Vue from "vue"
 import TodoPage from "./views/TodoPage.vue"
 
 export default Vue.extend ({

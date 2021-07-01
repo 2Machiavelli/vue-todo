@@ -1,7 +1,6 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import VuexPersist from "vuex-persist"
-
 // @ts-ignore
 import Todos from "./modules/Todos.ts"
 

@@ -3,19 +3,26 @@
 		class="mx-auto mt-4"
 		outlined
 	>
-		<v-card-title>
+		<v-card-title
+			data-testid="todo-title" 
+		>
 			{{ todoData.title }}
 		</v-card-title>
-		<v-card-subtitle>
+		<v-card-subtitle
+			data-testid="todo-date" 
+		>
 			{{ getDate }}
 		</v-card-subtitle>
-		<v-card-text>
+		<v-card-text
+			data-testid="todo-description" 
+		>
 			{{ todoData.description }}
 		</v-card-text>
 		<v-card-actions>
 			<v-btn 
 				color="success"
 				@click="emitCompleteTodo"
+				data-testid="todo-complete-btn"
 			> 
 				Complete
 			</v-btn>
@@ -25,6 +32,7 @@
 			<v-btn
 				color="error"
 				@click="emitDeleteTodo"
+				data-testid="todo-delete-btn"
 			>
 				Delete
 			</v-btn>
@@ -33,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from "vue"
 
 export default Vue.extend ({
 	props: {
@@ -54,11 +62,11 @@ export default Vue.extend ({
 	},
 
 	methods: {
-		emitDeleteTodo() {
+		emitDeleteTodo(): void {
 			this.$emit("deleteTodo", this.todoData)
 		},
 		
-		emitCompleteTodo() {
+		emitCompleteTodo(): void {
 			this.$emit("completeTodo", this.todoData)
 		}
 	}
