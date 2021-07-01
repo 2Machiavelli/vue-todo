@@ -17,21 +17,27 @@ const todoDataTwo: any = {
 	date: 1624471319925
 }
 
-const store: any = new Store({
-	modules: {
-		todos: {
-			...todosModule,
-			state: {
-				todos: [
-					todoDataOne
-				],
-				completedTodos: []
-			}
-		}
-	}
-})
+
 
 describe("Todos.js", () => {
+	let store: any
+
+	beforeEach(() => {
+		store = new Store({
+			modules: {
+				todos: {
+					...todosModule,
+					state: {
+						todos: [
+							todoDataOne
+						],
+						completedTodos: []
+					}
+				}
+			}
+		})
+	});
+
 	it("get todos", () => {
 		expect(store.getters.getAllTodos).toEqual([
 			todoDataOne
@@ -53,28 +59,24 @@ describe("Todos.js", () => {
 			todo: todoDataOne
 		})
 
-		expect(store.getters.getAllTodos[0]).toBe(todoDataTwo)
+		expect(store.getters.getAllTodos.length).toBe(0)
 	})
 
 	it("complete todo", () => {
 		store.commit("updateTodos", {
 			action: "complete",
-			todo: todoDataTwo
+			todo: todoDataOne
 		})
 
 		expect(store.getters.getAllTodos.length).toBe(0)
+		expect(store.getters.getAllCompletedTodos.length).toBe(1)
 	})
 
 	it("edit todo", () => {
 		store.commit("updateTodos", {
-			action: "add",
-			todo: todoDataTwo
-		})
-
-		store.commit("updateTodos", {
 			action: "edit",
 			todo: {
-				...todoDataTwo,
+				...todoDataOne,
 				title: "newTitle"
 			}
 		})

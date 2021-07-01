@@ -1,64 +1,80 @@
-import { expect } from "@jest/globals"
-import { mount, shallowMount } from "@vue/test-utils"
+import "@testing-library/jest-dom"
+import vuetify from "@/plugins/vuetify"
+import { render, fireEvent } from "@testing-library/vue"
 
 import DialogEditTodo from "@/components/DialogEditTodo.vue"
 
-
-const todoData: any = {
-	id: "G48a_bJwSi0SB6xSeJOtu", 
+const todoData = {
+	id: "G48a_bJwSi0SB6xSeJOtl", 
 	title: "title", 
 	description: "description", 
 	date: 1624471319925
 }
 
-
 describe("DialogEditTodo.vue", () => {
-
-	it("testing component", () => {
-		const wrapper = shallowMount(DialogEditTodo)
-
-		expect(wrapper.vm).toBeTruthy()
-		expect(wrapper.is(DialogEditTodo)).toBeTruthy()
-	})
-
-	it("testing props", () => {
-		const wrapper: any = shallowMount(DialogEditTodo, {
+	test("testing props", () => {
+		const {
+			getByTestId,
+		} = render(DialogEditTodo, {
+			vuetify,
 			propsData: {
-				"editingTodoData": todoData
-			}
+				editingTodoData: todoData
+			},
+			data: () => ({
+				dialog: true
+			})
 		})
 
-		expect(wrapper.vm.title).toBe("title")
-		expect(wrapper.vm.description).toBe("description")
+		const titleInput: any = getByTestId("dialog_edit-title-input")
+		const descriptionInput: any = getByTestId("dialog_edit-description-input")
+
+		expect(titleInput.value).toBe("title")
+		expect(descriptionInput.value).toBe("description")
 	})
 
-	it("testing submit", () => {
-		const wrapper: any = shallowMount(DialogEditTodo)
-
-		wrapper.setData({
-			title: "newTitle",
-			description: "newDescription"
+	test("testing input data", async () => {
+		const {
+			getByTestId,
+		} = render(DialogEditTodo, {
+			vuetify,
+			data: () => ({
+				dialog: true
+			})
 		})
 
-		wrapper.vm.$nextTick()
+		const titleInput: any = getByTestId("dialog_edit-title-input")
+		const descriptionInput: any = getByTestId("dialog_edit-description-input")
 
-		wrapper.vm.$refs.form.validate = () => true
+		await fireEvent.update(titleInput, "newTitle")
+		await fireEvent.update(descriptionInput, "newDescription")
 
-		wrapper.vm.handleSubmit()
-
-		expect(wrapper.emitted().editTodo).toBeTruthy()
+		expect(titleInput.value).toBe("newTitle")
+		expect(descriptionInput.value).toBe("newDescription")
 	})
 
-	it("testing open/close", () => {
-		const wrapper: any = mount(DialogEditTodo)
+	test("testing submit", async () => {
+		const {
+			getByTestId,
+			emitted,
+		} = render(DialogEditTodo, {
+			vuetify,
+			data: () => ({
+				dialog: true
+			}),
+			propsData: {
+				editingTodoData: todoData
+			},
+		})
 
-		wrapper.vm.openDialog()
+		const titleInput: any = getByTestId("dialog_edit-title-input")
+		const descriptionInput: any = getByTestId("dialog_edit-description-input")
+		const submitBtn: any = getByTestId("dialog_edit-submit-btn")
 
-		expect(wrapper.vm.dialog).toBeTruthy()
-
-		wrapper.vm.closeDialog()
-
-		expect(wrapper.vm.dialog).toBeFalsy()
+		await fireEvent.update(titleInput, "newTitle")
+		await fireEvent.update(descriptionInput, "newDescription")
+		await fireEvent.click(submitBtn)
+		
+		expect(emitted().editTodo[0][0].title).toBe("newTitle")
+		expect(emitted().editTodo[0][0].description).toBe("newDescription")
 	})
-
 })

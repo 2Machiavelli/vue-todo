@@ -1,4 +1,5 @@
-import { mount } from "@vue/test-utils"
+import "@testing-library/jest-dom"
+import { render, fireEvent } from "@testing-library/vue"
 
 import Todo from "@/components/Todo.vue"
 
@@ -11,34 +12,37 @@ const todoData = {
 
 
 describe("Todo.vue", () => {
-	it("html testing", () => {
-		const wrapper: any = mount(Todo, {
-			propsData: { 
-				todoData 
-			}
-		})
-		
-		expect(wrapper.vm).toBeTruthy()
-		expect(wrapper.is(Todo)).toBeTruthy()
-		expect(wrapper.vm.getDate).toBeTruthy()
-		expect(wrapper.find(".v-card__title").text()).toBe("title")
-		expect(wrapper.find(".v-card__subtitle").text()).toBe(wrapper.vm.getDate)
-		expect(wrapper.find(".v-card__text").text()).toBe("description")
-	})
-
-
-	it("methods testing", () => {
-		const wrapper: any = mount(Todo, {
-			propsData: { 
-				todoData 
+	test("testing props", async () => {
+		const {
+			getByTestId,
+		} = render(Todo, {
+			props: {
+				todoData
 			}
 		})
 
-		wrapper.vm.emitDeleteTodo()
-		wrapper.vm.emitCompleteTodo()
-
-		expect(wrapper.emitted().deleteTodo).toEqual([[todoData]])
-		expect(wrapper.emitted().completeTodo).toEqual([[todoData]])
+		expect(getByTestId("todo-title")).toHaveTextContent("title")
+		expect(getByTestId("todo-date")).toHaveTextContent("6/23/2021 | 21:01")
+		expect(getByTestId("todo-description")).toHaveTextContent("description")
 	})
 
+	test("testing methods", async () => {
+		const {
+			getByTestId,
+			emitted,
+		} = render(Todo, {
+			props: {
+				todoData
+			}
+		})
+
+		const completeBtn: any = getByTestId("todo-complete-btn")
+		const deleteBtn: any = getByTestId("todo-delete-btn")
+
+		await fireEvent.click(completeBtn, todoData)
+		await fireEvent.click(deleteBtn, todoData)
+
+		expect(emitted().completeTodo).toEqual([[ todoData ]])
+		expect(emitted().deleteTodo).toEqual([[ todoData ]])
+	})
 })

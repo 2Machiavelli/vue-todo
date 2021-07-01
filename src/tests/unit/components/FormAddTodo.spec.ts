@@ -1,33 +1,43 @@
-import { expect } from "@jest/globals"
-import { mount, shallowMount } from "@vue/test-utils"
+import "@testing-library/jest-dom"
+import { render, fireEvent } from "@testing-library/vue"
 
 import FormAddTodo from "@/components/FormAddTodo.vue"
 
 describe("FormAddTodo.vue", () => {
+	test("testing input data", async () => {
+		const {
+			getByTestId,
+			debug,
+		} = render(FormAddTodo)
 
-	it("testing component", () => {
-		const wrapper: any = mount(FormAddTodo)
+		const titleInput: any = getByTestId("form_add-title-input")
+		const descriptionInput: any = getByTestId("form_add-description-input")
 
-		expect(wrapper.vm).toBeTruthy()
-		expect(wrapper.is(FormAddTodo)).toBeTruthy()
+		await fireEvent.update(titleInput, "title")
+		await fireEvent.update(descriptionInput, "description")
+
+		expect(titleInput.value).toBe("title")
+		expect(descriptionInput.value).toBe("description")
 	})
 
-	it("testing submit", () => {
-		const wrapper: any = shallowMount(FormAddTodo)
 
-		wrapper.setData({
-			title: "newTitle",
-			description: "newDescription"
+
+	test("testing submit", async () => {
+		const {
+			getByTestId,
+			emitted,
+		} = render(FormAddTodo, {
+			data: () => ({
+				title: "title",
+				description: "description"
+			})
 		})
 
-		wrapper.vm.$nextTick()
+		const submitBtn: any = getByTestId("form_add-submit-btn")
 
-		wrapper.vm.$refs.form.validate = () => true
-		wrapper.vm.$refs.form.reset = () => true
-
-		wrapper.vm.handleSubmit()
-
-		expect(wrapper.emitted().addTodo).toBeTruthy()
+		await fireEvent.click(submitBtn)
+		
+		expect(emitted().addTodo[0][0].title).toBe("title")
+		expect(emitted().addTodo[0][0].description).toBe("description")
 	})
-
 })
