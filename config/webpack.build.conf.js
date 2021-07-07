@@ -1,15 +1,16 @@
 const merge                    = require('webpack-merge')
 const baseWebpackConfig        = require('./webpack.base.conf')
-const { CleanWebpackPlugin }   = require('clean-webpack-plugin')
+const WebpackBundleSizeAnalyzerPlugin = require('webpack-bundle-size-analyzer').WebpackBundleSizeAnalyzerPlugin
 
 const buildWebpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
   output: {
-    publicPath: './'
+    publicPath: './',
+    clean: true
   },
   devtool: 'source-map',
   plugins: [
-    new CleanWebpackPlugin()
+    new WebpackBundleSizeAnalyzerPlugin('./bundle_size.txt'),
   ]
 })
 

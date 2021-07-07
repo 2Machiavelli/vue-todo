@@ -1,18 +1,20 @@
-export default {
+import { Module } from "vuex"
+
+const todosModule: Module<any, any> = {
 	state: () => ({
 		todos: [],
 		completedTodos: []
 	}),
 	getters: {
-		getAllTodos(state) {
-
-			const sortedTodos = state.todos.sort((a, b) =>  b.date - a.date)
-
-			return sortedTodos
+		getAllTodos(state: any): any {
+			return state.todos
+		},
+		getAllCompletedTodos(state: any): any {
+			return state.completedTodos
 		}
 	},
 	mutations: {
-		updateTodos(state, { action, todo }) {
+		updateTodos(state: any, { action, todo }) {
 			if (action === "add") {
 				state.todos = [ todo, ...state.todos ]
 			}
@@ -20,11 +22,11 @@ export default {
 			if (action === "complete") {
 				state.completedTodos = [ todo, ...state.completedTodos ]
 
-				state.todos = state.todos.filter(item => item.id != todo.id )
+				state.todos = state.todos.filter((item: any) => item.id != todo.id )
 			}
 
 			if (action === "edit") {
-				state.todos = state.todos.map(item => {
+				state.todos = state.todos.map((item: any) => {
 					if (item.id === todo.id) {
 						return todo
 					}
@@ -34,7 +36,7 @@ export default {
 			}
 
 			if (action === "delete") {
-				state.todos = state.todos.filter(item => item.id != todo.id )
+				state.todos = state.todos.filter((item: any) => item.id != todo.id )
 			}
 		}
 	},
@@ -68,3 +70,7 @@ export default {
 		}
 	}
 }
+
+
+
+export default todosModule

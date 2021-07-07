@@ -1,9 +1,7 @@
-const path                      = require('path')
-const fs                        = require('fs')
-const MiniCssExtractPlugin      = require('mini-css-extract-plugin')
-const CopyWebpackPlugin         = require('copy-webpack-plugin')
-const HtmlWebpackPlugin         = require('html-webpack-plugin')
-const { VueLoaderPlugin }          = require('vue-loader')
+const path                            = require('path')
+const MiniCssExtractPlugin            = require('mini-css-extract-plugin')
+const HtmlWebpackPlugin               = require('html-webpack-plugin')
+const { VueLoaderPlugin }             = require('vue-loader')
 
 const PATHS = {
   src: path.join(__dirname, '../src'),
@@ -11,16 +9,13 @@ const PATHS = {
   assets: 'assets/'
 }
 
-const PAGES_DIR = PATHS.src
-const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.html'))
-
 module.exports = {
   target: 'web',
   externals: {
     paths: PATHS
   },
   entry: {
-    main: `${PATHS.src}/index.js`,
+    main: `${PATHS.src}/index.ts`,
   },
   output: {
     filename: `${PATHS.assets}js/[name].[contenthash].js`,
@@ -55,51 +50,12 @@ module.exports = {
         exclude: '/node_modules/'
       },
       {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/fonts/[name][ext]'
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          appendTsSuffixTo: [/\.vue$/],
         }
-      }, 
-      {
-        test: /\.(png|jpg|gif|svg)$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/img/[name][ext]'
-        }
-      },
-      {
-        test: /\.styl(us)?$/,
-        use: [
-          {
-            loader: 'vue-style-loader'
-          },
-          {
-            loader: "style-loader"
-          },
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: '../../'
-            }
-          },
-          {
-            loader: "css-loader",
-            options: { 
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: { sourceMap: true, config: { path: `./postcss.config.js` } }
-          },
-          {
-            loader: "stylus-loader",
-            options: { 
-              sourceMap: true
-            }
-          }
-        ]
       },
       {
         test: /\.css$/,
@@ -125,27 +81,7 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        test: /\.s(c|a)ss$/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-          {
-            loader: 'sass-loader',
-            options: {
-              implementation: require('sass'),
-              indentedSyntax: true
-            },
-            options: {
-              implementation: require('sass'),
-              sassOptions: {
-                indentedSyntax: true
-              },
-            },
-          },
-        ],
-      },
+      }
     ]
   },
   resolve: {
@@ -158,14 +94,11 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: `${PATHS.assets}css/[name].[contenthash].css`,
     }),
-    new CopyWebpackPlugin([
-      { from: `${PATHS.src}/assets/img/icons`, to: `${PATHS.assets}/img` },
-    ]),
-    ...PAGES.map(page => new HtmlWebpackPlugin({
-      template: `${PAGES_DIR}/${page}`,
-      filename: `./${page}`,
-      minify: false,
+    new HtmlWebpackPlugin({
+      template: `${PATHS.src}/index.html`,
+      filename: `index.html`,
+      minify: true,
       cache: true,
-    }))
+    })
   ],
 }

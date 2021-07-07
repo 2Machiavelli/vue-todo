@@ -9,7 +9,7 @@
 				cols="6"
 				align-self="center"
 			>
-				<todo-form
+				<form-add-todo
 					@addTodo="addTodo"
 				/>
 			</v-col>
@@ -23,44 +23,61 @@
 			<v-col
 				cols="6"
 				align-self="center"
+				data-testid="todo-container"
 			>
 				<todo
-					v-for="todo in getAllTodos"
+					v-for="todo in allTodosSortedByDate"
 					:key="todo.id"
 					:todo-data="todo"
 					@deleteTodo="deleteTodo"
 					@completeTodo="completeTodo"
-				/>
+				>
+					<dialog-edit-todo
+						slot="dialogEditTodo"
+						:editing-todo-data="todo"
+						@editTodo="editTodo"
+					/>
+				</todo>
 			</v-col>
 		</v-row>
 	</v-container>
 </template>
 
-<script>
+<script lang="ts">
 
+import Vue from "vue"
 import { mapGetters, mapActions } from "vuex"
-
-import TodoForm from "../components/FormTodo.vue"
+import DialogEditTodo from "../components/DialogEditTodo.vue"
+import FormAddTodo from "../components/FormAddTodo.vue"
 import Todo from "../components/Todo.vue"
 
-export default {
+export default Vue.extend ({
 	components: {
-		"todo-form": TodoForm,
+		"dialog-edit-todo": DialogEditTodo,
+		"form-add-todo": FormAddTodo,
 		"todo": Todo,
 	},
 
 	computed: {
 		...mapGetters([
 			"getAllTodos"
-		])
+		]),
+
+
+		allTodosSortedByDate() {
+			const allTodos = [...this.getAllTodos]
+
+			return allTodos.sort((a, b) =>  b.date - a.date)
+		}
 	},
 
 	methods: {
 		...mapActions([
 			"addTodo",
-			"deleteTodo",
-			"completeTodo"
+			"completeTodo",
+			"editTodo",
+			"deleteTodo"
 		])
 	}
-}
+})
 </script>

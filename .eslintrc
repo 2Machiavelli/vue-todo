@@ -3,6 +3,7 @@
     "eslint:recommended",
     "plugin:vue/recommended"
   ],
+  "plugins": ["jest"],
   "rules": {
     "no-unused-vars": "warn",
     "vue/html-self-closing": ["error", {
@@ -20,11 +21,17 @@
     "quotes": [
       "error",
       "double"
-    ]
+    ],
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
   },
   "env": {
     "es6": true,
-    "browser": true
+    "browser": true,
+    "jest/globals": true
   },
   "parserOptions": {
     "parser": "babel-eslint",
@@ -32,6 +39,11 @@
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
+    }
+  },
+  "settings": {
+    "jest": {
+      "version": 27
     }
   }
 }

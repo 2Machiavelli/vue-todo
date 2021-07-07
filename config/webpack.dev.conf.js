@@ -1,6 +1,6 @@
 const merge               = require('webpack-merge')
 const baseWebpackConfig   = require('./webpack.base.conf')
-const ESLintPlugin        = require('eslint-webpack-plugin');
+const ESLintPlugin        = require('eslint-webpack-plugin')
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   mode: 'development',
@@ -9,7 +9,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   },
   devServer: {
     contentBase: baseWebpackConfig.externals.paths.dist,
-    port: 3000,
+    port: 8080,
     overlay: {
       warnings: true,
       errors: true
@@ -17,7 +17,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   },
   plugins: [
     new ESLintPlugin({
-      extensions: ['js', 'vue']
+      extensions: ["ts", "js", "vue"]
     }),
   ]
 })

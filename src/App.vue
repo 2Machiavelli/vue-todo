@@ -6,13 +6,14 @@
 	</v-app>
 </template>
 
-<script>
+<script lang="ts">
 
+import Vue from "vue"
 import TodoPage from "./views/TodoPage.vue"
 
-export default {
+export default Vue.extend ({
 	components: {
 		"todo-page": TodoPage
 	}
-}
+})
 </script>
