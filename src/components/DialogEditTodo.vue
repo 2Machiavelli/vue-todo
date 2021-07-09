@@ -49,8 +49,8 @@
 					<v-btn
 						color="warning"
 						class="mr-4"
-						@click="reset"
 						data-testid="dialog_edit-reset-btn"
+						@click="reset"
 					>
 						Reset
 					</v-btn>

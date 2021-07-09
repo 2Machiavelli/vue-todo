@@ -5,6 +5,8 @@
   ],
   "plugins": ["jest"],
   "rules": {
+    "quotes": [2, "double", { "avoidEscape": true }],
+    "semi": [2, "never"],
     "no-unused-vars": "warn",
     "vue/html-self-closing": ["error", {
       "html": {
@@ -18,10 +20,6 @@
     "vue/html-indent": ["error", "tab"],
     "vue/html-quotes": [ "error", "double", { "avoidEscape": false } ],
     "indent": ["error", "tab"],
-    "quotes": [
-      "error",
-      "double"
-    ],
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
