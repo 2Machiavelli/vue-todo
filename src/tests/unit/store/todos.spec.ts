@@ -2,7 +2,6 @@ import { expect } from "@jest/globals"
 import todosModule from "@/store/modules/Todos"
 import { Store } from "vuex"
 
-
 const todoDataOne: any = {
 	id: "G48a_bJwSi0SB6xSeJOtu", 
 	title: "title", 
@@ -16,8 +15,6 @@ const todoDataTwo: any = {
 	description: "description", 
 	date: 1624471319925
 }
-
-
 
 describe("Todos.js", () => {
 	let store: any

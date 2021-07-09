@@ -21,8 +21,8 @@
 		<v-card-actions>
 			<v-btn 
 				color="success"
-				@click="emitCompleteTodo"
 				data-testid="todo-complete-btn"
+				@click="emitCompleteTodo"
 			> 
 				Complete
 			</v-btn>
@@ -31,8 +31,8 @@
 			/>
 			<v-btn
 				color="error"
-				@click="emitDeleteTodo"
 				data-testid="todo-delete-btn"
+				@click="emitDeleteTodo"
 			>
 				Delete
 			</v-btn>

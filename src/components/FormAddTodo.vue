@@ -29,8 +29,8 @@
 		<v-btn
 			color="warning"
 			class="mr-4"
-			@click="reset"
 			data-testid="form_add-reset-btn"
+			@click="reset"
 		>
 			Reset
 		</v-btn>
@@ -66,7 +66,7 @@ export default Vue.extend ({
 					date: Date.now()
 				})
 				
-				// this.reset("form")
+				this.reset("form")
 				return
 			}
 		},
